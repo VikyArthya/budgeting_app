@@ -3,9 +3,12 @@ package database
 import (
 	"log"
 
+	"github.com/VikyArthya/budgeting_app/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
+
+var DB *gorm.DB
 
 func Connect(){
 	// Connection string untuk PostgreSQL
@@ -24,4 +27,8 @@ func Connect(){
         panic("failed to ping database: " + err.Error())
     }
     log.Println("Successfully connected to database!")	
+
+    DB = db
+
+    db.AutoMigrate(&models.User{})
 }
